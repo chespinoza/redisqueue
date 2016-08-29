@@ -108,7 +108,7 @@ func (r RedisQueue) GetAll(queueName string) (items []string, err error) {
 func (r RedisQueue) Clean(queueName string) error {
 	pool := r.redisPool.Get()
 	defer pool.Close()
-	if _, err := redis.String(pool.Do("DEL", queueName)); err != nil {
+	if _, err := pool.Do("DEL", queueName); err != nil {
 		return err
 	}
 	return nil
